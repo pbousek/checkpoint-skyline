@@ -48,9 +48,26 @@ skyline/
 
 ## Požadavky
 
+**Hardware** (doporučené minimum):
+- 2 vCPU, 2 GB RAM
+- Disk: závisí na počtu metrik a délce retence — Prometheus uvádí postup výpočtu
+  v [dokumentaci ke storage](https://prometheus.io/docs/prometheus/latest/storage/#operational-aspects).
+  Jako orientační hodnota: Check Point gateway exportuje cca **1 400 metrik**, počet se liší
+  podle typu zařízení, počtu běžících blade a konfiguraci. Výsledná velikost dat na disku
+  závisí také na počtu monitorovaných GW a zvolené retenci.
+
+**Síť:**
+- Port `9090` přístupný z Check Point sítě (Prometheus remote write), ideálně omezit firewallem jen na IP kolektoru
+- Port `80` a `443` pro Caddy — viz níže
+
+**Software:**
 - Docker + Docker Compose plugin
-- Otevřený port 9090 (Prometheus remote write) dovnitř z Check Point sítě
-- Otevřený port 3000 (Grafana) pro uživatele
+
+**Poznámka k síťovému umístění a TLS:**
+Stack nevyžaduje veřejnou IP. Caddy podporuje tři režimy TLS:
+- **Let's Encrypt** — automatický certifikát, vyžaduje veřejnou IP a DNS záznam (porty 80+443 z internetu)
+- **`tls internal`** — Caddy si vytvoří vlastní lokální CA a podepíše certifikát sám; vhodné pro interní nasazení bez veřejné IP (prohlížeč bude certifikát považovat za nedůvěryhodný, dokud nepřidáš CA do trust store)
+- **Vlastní certifikát** — předáš cert a klíč, např. vydaný interní PKI
 
 ## 1. Certifikát
 

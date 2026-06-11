@@ -1,6 +1,29 @@
-# Caddy automaticky získá a obnovuje TLS certifikát přes Let's Encrypt.
-# Podmínka: {$GRAFANA_DOMAIN} musí mít DNS A/AAAA záznam na tento server.
+# Caddy TLS — tři možné režimy, odkomentuj ten který odpovídá tvému prostředí:
 
+# 1) Let's Encrypt (výchozí)
+#    Vyžaduje veřejnou IP, DNS záznam pro doménu a otevřené porty 80+443 z internetu.
+#    Caddy certifikát získá a obnovuje automaticky.
 {$GRAFANA_DOMAIN} {
     reverse_proxy grafana:3000
 }
+
+# 2) Interní CA (bez veřejné IP)
+#    Caddy si vytvoří vlastní lokální CA a certifikát podepíše sám.
+#    Certifikát bude v prohlížeči nedůvěryhodný — je potřeba přidat Caddy root CA
+#    do trust store systému/prohlížeče (najdeš ji v Docker volume caddy_data).
+#
+# {$GRAFANA_DOMAIN} {
+#     tls internal
+#     reverse_proxy grafana:3000
+# }
+
+# 3) Vlastní certifikát (interní PKI, self-signed)
+#    Certifikát a klíč musí být namountované v kontejneru.
+#    Přidej do docker-compose.yml do volumes Caddy service:
+#      - ./certs/grafana.crt:/etc/caddy/certs/grafana.crt:ro
+#      - ./certs/grafana.key:/etc/caddy/certs/grafana.key:ro
+#
+# {$GRAFANA_DOMAIN} {
+#     tls /etc/caddy/certs/grafana.crt /etc/caddy/certs/grafana.key
+#     reverse_proxy grafana:3000
+# }
