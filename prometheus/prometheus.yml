@@ -1,0 +1,18 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+# Prometheus přijímá data výhradně přes Remote Write od Check Point OpenTelemetry Collectoru.
+# Endpoint: https://<tento-server>:9090/api/v1/write
+# Vlastní scrape není nakonfigurován.
+
+# Pokud se v budoucnu zapne Alertmanager, odkomentovat:
+# alerting:
+#   alertmanagers:
+#     - static_configs:
+#         - targets: ["localhost:9093"]
+
+# rule_files:
+#   - /etc/prometheus/rules/*.rules
+
+scrape_configs: []
