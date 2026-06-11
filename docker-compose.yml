@@ -4,6 +4,8 @@ services:
     image: prom/prometheus:${PROMETHEUS_VERSION:-latest}
     restart: unless-stopped
     ports:
+      # Port 9090 musí být dostupný z Check Point sítě pro Remote Write.
+      # Doporučeno omezit firewallem jen na IP adresu CP kolektoru.
       - "${PROMETHEUS_PORT:-9090}:9090"
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
@@ -22,8 +24,10 @@ services:
   grafana:
     image: grafana/grafana:${GRAFANA_VERSION:-latest}
     restart: unless-stopped
-    ports:
-      - "${GRAFANA_PORT:-3000}:3000"
+    # Port Grafany není exponován přímo ven — přístup zajišťuje Caddy (viz níže).
+    # Pokud Caddy nepoužíváš a chceš přistupovat přímo, odkomentuj:
+    # ports:
+    #   - "${GRAFANA_PORT:-3000}:3000"
     environment:
       - GF_SECURITY_ADMIN_USER=${GRAFANA_ADMIN_USER:-admin}
       - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD:-changeme}
@@ -34,6 +38,32 @@ services:
       - ./dashboards:/etc/grafana/provisioning/dashboards/json:ro
     depends_on:
       - prometheus
+
+  # Caddy — reverse proxy s automatickým TLS (Let's Encrypt).
+  #
+  # Požadavky:
+  #   - server musí mít veřejnou IP a DNS záznam pro GRAFANA_DOMAIN
+  #   - porty 80 a 443 musí být dostupné z internetu (pro ACME challenge)
+  #
+  # Pokud chceš použít jinou reverse proxy (nginx, Traefik, Apache...):
+  #   1. Odkomentuj výše ports: u grafana service
+  #   2. Tuto sekci smaž nebo nech zakomentovanou
+  #   3. Nakonfiguruj svou proxy aby proxovala na localhost:${GRAFANA_PORT:-3000}
+  #      a případně nastavila hlavičky X-Forwarded-For / X-Real-IP
+  caddy:
+    image: caddy:${CADDY_VERSION:-latest}
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    environment:
+      - GRAFANA_DOMAIN=${GRAFANA_DOMAIN:-monitoring.example.com}
+    depends_on:
+      - grafana
 
   # Alertmanager — zatím vypnutý, odkomentovat až bude potřeba
   #
@@ -52,4 +82,6 @@ services:
 volumes:
   prometheus_data:
   grafana_data:
+  caddy_data:
+  caddy_config:
   # alertmanager_data:

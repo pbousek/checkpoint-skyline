@@ -1,0 +1,6 @@
+# Caddy automaticky získá a obnovuje TLS certifikát přes Let's Encrypt.
+# Podmínka: {$GRAFANA_DOMAIN} musí mít DNS A/AAAA záznam na tento server.
+
+{$GRAFANA_DOMAIN} {
+    reverse_proxy grafana:3000
+}

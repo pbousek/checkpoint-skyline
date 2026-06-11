@@ -6,6 +6,15 @@ Standalone Docker Compose stack pro příjem metrik z Check Point Skyline přes
 Vychází z: **https://support.checkpoint.com/results/sk/sk178566**
 (SK článek věnovaný nasazení Skyline, sekce Downloads obsahuje oficiální Grafana dashboardy)
 
+## Komponenty
+
+| Komponenta | Dokumentace | Popis |
+|---|---|---|
+| [Prometheus](https://prometheus.io/docs/introduction/overview/) | [Remote Write](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_write) · [TLS](https://prometheus.io/docs/prometheus/latest/configuration/https/) | Přijímá metriky z Check Point via Remote Write, ukládá do TSDB |
+| [Grafana](https://grafana.com/docs/grafana/latest/) | [Provisioning](https://grafana.com/docs/grafana/latest/administration/provisioning/) | Vizualizace metrik, dashboardy načítané automaticky ze složky |
+| [Caddy](https://caddyserver.com/docs/) | [Reverse proxy](https://caddyserver.com/docs/quick-starts/reverse-proxy) | Reverse proxy s automatickým TLS (Let's Encrypt) před Grafanou |
+| [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/) | [Config](https://prometheus.io/docs/alerting/latest/configuration/) | Správa alertů — v compose zatím vypnutý, připraven k použití |
+
 ## Architektura
 
 ```
