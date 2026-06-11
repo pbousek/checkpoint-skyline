@@ -2,3 +2,4 @@ certs/*.crt
 certs/*.key
 certs/*.pem
 .env
+!.env.example
