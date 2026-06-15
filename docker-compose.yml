@@ -58,6 +58,8 @@ services:
       - "443:443"
     volumes:
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./certs/grafana.crt:/etc/caddy/certs/grafana.crt:ro
+      - ./certs/grafana.key:/etc/caddy/certs/grafana.key:ro
       - caddy_data:/data
       - caddy_config:/config
     environment:

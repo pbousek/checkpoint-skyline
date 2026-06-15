@@ -1,12 +1,12 @@
 #!/bin/bash
-# Generates prometheus/web.yml (TLS + basic auth) and payload.json for Check Point.
+# Generates config files from .env and certs.
 # Run on the server after git clone / git pull, before docker compose up.
 #
-# Usage:
-#   ./setup.sh
-#
-# Requires .env with: PROMETHEUS_SERVER, PROMETHEUS_AUTH_USER, PROMETHEUS_AUTH_PASSWORD
-# Certs must exist in certs/ (run gen-certs.sh first if not).
+# What it generates:
+#   prometheus/web.yml  -- TLS + basic auth config
+#   caddy/Caddyfile     -- TLS mode based on CADDY_TLS_MODE
+#   certs/grafana.*     -- self-signed cert for Grafana (if CADDY_TLS_MODE=custom)
+#   payload.json        -- Check Point collector config
 
 set -euo pipefail
 
@@ -20,7 +20,9 @@ set -a; source .env; set +a
 : "${PROMETHEUS_SERVER:?Set PROMETHEUS_SERVER in .env}"
 : "${PROMETHEUS_AUTH_USER:?Set PROMETHEUS_AUTH_USER in .env}"
 : "${PROMETHEUS_AUTH_PASSWORD:?Set PROMETHEUS_AUTH_PASSWORD in .env}"
+: "${GRAFANA_DOMAIN:?Set GRAFANA_DOMAIN in .env}"
 
+CADDY_TLS_MODE="${CADDY_TLS_MODE:-internal}"
 CERT_FILE="certs/prometheus.crt"
 
 if [[ ! -f "$CERT_FILE" ]]; then
@@ -28,8 +30,9 @@ if [[ ! -f "$CERT_FILE" ]]; then
     exit 1
 fi
 
-# Generate bcrypt hash -- try Python bcrypt, fall back to Docker
-echo "Generating bcrypt hash..."
+# --- prometheus/web.yml ---
+
+echo "Generating bcrypt hash for Prometheus basic auth..."
 if python3 -c "import bcrypt" 2>/dev/null; then
     HASH=$(BCRYPT_PW="${PROMETHEUS_AUTH_PASSWORD}" python3 -c "
 import bcrypt, os
@@ -42,7 +45,6 @@ else
         sh -c 'htpasswd -bnBC 12 "" "$PW"' | tr -d ':\n' | sed 's/\$2y/\$2b/')
 fi
 
-# Write prometheus/web.yml
 cat > prometheus/web.yml <<EOF
 tls_server_config:
   cert_file: /etc/prometheus/certs/prometheus.crt
@@ -56,9 +58,57 @@ basic_auth_users:
   ${PROMETHEUS_AUTH_USER}: ${HASH}
 EOF
 
-echo "Updated prometheus/web.yml"
+echo "Generated prometheus/web.yml"
 
-# Generate payload.json
+# --- caddy/Caddyfile ---
+
+# For custom mode: generate Grafana cert if missing
+if [[ "$CADDY_TLS_MODE" == "custom" && ! -f "certs/grafana.crt" ]]; then
+    echo "Generating Grafana TLS cert (self-signed)..."
+    openssl req -x509 -newkey rsa:4096 \
+        -keyout certs/grafana.key \
+        -out certs/grafana.crt \
+        -days 3650 -nodes \
+        -subj "/CN=${GRAFANA_DOMAIN}" \
+        -addext "subjectAltName=DNS:${GRAFANA_DOMAIN}"
+    chmod 644 certs/grafana.crt certs/grafana.key
+    echo "Generated certs/grafana.crt -- add to browser/OS trust store to avoid warnings"
+fi
+
+case "$CADDY_TLS_MODE" in
+  letsencrypt)
+    cat > caddy/Caddyfile <<EOF
+${GRAFANA_DOMAIN} {
+    reverse_proxy grafana:3000
+}
+EOF
+    ;;
+  internal)
+    cat > caddy/Caddyfile <<EOF
+${GRAFANA_DOMAIN} {
+    tls internal
+    reverse_proxy grafana:3000
+}
+EOF
+    ;;
+  custom)
+    cat > caddy/Caddyfile <<EOF
+${GRAFANA_DOMAIN} {
+    tls /etc/caddy/certs/grafana.crt /etc/caddy/certs/grafana.key
+    reverse_proxy grafana:3000
+}
+EOF
+    ;;
+  *)
+    echo "ERROR: Unknown CADDY_TLS_MODE=${CADDY_TLS_MODE}. Use: letsencrypt, internal, custom"
+    exit 1
+    ;;
+esac
+
+echo "Generated caddy/Caddyfile (mode: ${CADDY_TLS_MODE})"
+
+# --- payload.json ---
+
 CERT=$(awk 'NF {sub(/\r/, ""); printf "%s\\n",$0;}' "$CERT_FILE")
 
 cat > payload.json <<EOF
@@ -91,7 +141,8 @@ EOF
 echo "Generated payload.json"
 echo ""
 echo "Next steps:"
-echo "  docker compose restart prometheus"
+echo "  docker compose up -d      # first run"
+echo "  docker compose restart    # if already running"
 echo ""
 echo "Apply on Check Point gateway:"
 echo "  sklnctl export --set \"\$(cat payload.json)\""
