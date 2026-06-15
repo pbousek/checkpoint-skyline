@@ -4,8 +4,8 @@ services:
     image: prom/prometheus:${PROMETHEUS_VERSION:-latest}
     restart: unless-stopped
     ports:
-      # Port 9090 musí být dostupný z Check Point sítě pro Remote Write.
-      # Doporučeno omezit firewallem jen na IP adresu CP kolektoru.
+      # Port 9090 musi byt dostupny z Check Point site pro Remote Write.
+      # Doporuceno omezit firewallem jen na IP adresu CP kolektoru.
       - "${PROMETHEUS_PORT:-9090}:9090"
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
@@ -24,8 +24,8 @@ services:
   grafana:
     image: grafana/grafana:${GRAFANA_VERSION:-latest}
     restart: unless-stopped
-    # Port Grafany není exponován přímo ven — přístup zajišťuje Caddy (viz níže).
-    # Pokud Caddy nepoužíváš a chceš přistupovat přímo, odkomentuj:
+    # Port Grafany neni exponovan primo ven — pristup zajistuje Caddy (viz nize).
+    # Pokud Caddy nepouzivas a chces pristupovat primo, odkomentuj:
     # ports:
     #   - "${GRAFANA_PORT:-3000}:3000"
     environment:
@@ -39,17 +39,17 @@ services:
     depends_on:
       - prometheus
 
-  # Caddy — reverse proxy s automatickým TLS (Let's Encrypt).
+  # Caddy — reverse proxy s automatickym TLS (Let's Encrypt).
   #
-  # Požadavky:
-  #   - server musí mít veřejnou IP a DNS záznam pro GRAFANA_DOMAIN
-  #   - porty 80 a 443 musí být dostupné z internetu (pro ACME challenge)
+  # Pozadavky:
+  #   - server musi mit verejnou IP a DNS zaznam pro GRAFANA_DOMAIN
+  #   - porty 80 a 443 musi byt dostupne z internetu (pro ACME challenge)
   #
-  # Pokud chceš použít jinou reverse proxy (nginx, Traefik, Apache...):
-  #   1. Odkomentuj výše ports: u grafana service
-  #   2. Tuto sekci smaž nebo nech zakomentovanou
+  # Pokud chces pouzit jinou reverse proxy (nginx, Traefik, Apache...):
+  #   1. Odkomentuj vyse ports: u grafana service
+  #   2. Tuto sekci smaz nebo nech zakomentovanou
   #   3. Nakonfiguruj svou proxy aby proxovala na localhost:${GRAFANA_PORT:-3000}
-  #      a případně nastavila hlavičky X-Forwarded-For / X-Real-IP
+  #      a pripadne nastavila hlavicky X-Forwarded-For / X-Real-IP
   caddy:
     image: caddy:${CADDY_VERSION:-latest}
     restart: unless-stopped
@@ -65,7 +65,7 @@ services:
     depends_on:
       - grafana
 
-  # Alertmanager — zatím vypnutý, odkomentovat až bude potřeba
+  # Alertmanager — zatim vypnuty, odkomentovat az bude potreba
   #
   # alertmanager:
   #   image: prom/alertmanager:${ALERTMANAGER_VERSION:-latest}

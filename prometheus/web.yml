@@ -1,12 +1,12 @@
 # Prometheus TLS konfigurace pro Remote Write endpoint
-# Check Point OpenTelemetry Collector se připojuje na https://<server>:9090/api/v1/write
+# Check Point OpenTelemetry Collector se pripojuje na https://<server>:9090/api/v1/write
 #
-# Certifikáty vložit do ./certs/:
-#   prometheus.crt  — certifikát serveru (nebo self-signed)
-#   prometheus.key  — privátní klíč
-#   ca.crt          — CA certifikát pro ověření klientů (jen při mTLS)
+# Certifikaty vlozit do ./certs/:
+#   prometheus.crt  — certifikat serveru (nebo self-signed)
+#   prometheus.key  — privatni klic
+#   ca.crt          — CA certifikat pro overeni klientu (jen pri mTLS)
 #
-# Jak vygenerovat self-signed certifikát:
+# Jak vygenerovat self-signed certifikat:
 #   openssl req -x509 -newkey rsa:4096 -keyout certs/prometheus.key \
 #     -out certs/prometheus.crt -days 3650 -nodes \
 #     -subj "/CN=prometheus" -addext "subjectAltName=IP:<IP serveru>,DNS:<hostname>"
@@ -17,6 +17,6 @@ tls_server_config:
   cert_file: /etc/prometheus/certs/prometheus.crt
   key_file:  /etc/prometheus/certs/prometheus.key
 
-  # mTLS — ověření klienta (Check Point kolektoru). Odkomentovat pokud CP vyžaduje mTLS:
+  # mTLS — overeni klienta (Check Point kolektoru). Odkomentovat pokud CP vyzaduje mTLS:
   # client_ca_file:    /etc/prometheus/certs/ca.crt
   # client_auth_type:  RequireAndVerifyClientCert

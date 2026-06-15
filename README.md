@@ -1,24 +1,24 @@
 # Skyline — Prometheus + Grafana pro Check Point Skyline
 
-Standalone Docker Compose stack pro příjem metrik z Check Point Skyline přes
-**Prometheus Remote Write** (HTTPS/mTLS) a jejich vizualizaci v Grafaně.
+Standalone Docker Compose stack pro prijem metrik z Check Point Skyline pres
+**Prometheus Remote Write** (HTTPS/mTLS) a jejich vizualizaci v Grafane.
 
-Vychází z: **https://support.checkpoint.com/results/sk/sk178566**
-(SK článek věnovaný nasazení Skyline, sekce Downloads obsahuje oficiální Grafana dashboardy)
+Vychazi z: **https://support.checkpoint.com/results/sk/sk178566**
+(SK clanek venovany nasazeni Skyline, sekce Downloads obsahuje oficialni Grafana dashboardy)
 
 ## Komponenty
 
 | Komponenta | Dokumentace | Popis |
 |---|---|---|
-| [Prometheus](https://prometheus.io/docs/introduction/overview/) | [Remote Write](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_write) · [TLS](https://prometheus.io/docs/prometheus/latest/configuration/https/) | Přijímá metriky z Check Point via Remote Write, ukládá do TSDB |
-| [Grafana](https://grafana.com/docs/grafana/latest/) | [Provisioning](https://grafana.com/docs/grafana/latest/administration/provisioning/) | Vizualizace metrik, dashboardy načítané automaticky ze složky |
-| [Caddy](https://caddyserver.com/docs/) | [Reverse proxy](https://caddyserver.com/docs/quick-starts/reverse-proxy) | Reverse proxy s automatickým TLS (Let's Encrypt) před Grafanou |
-| [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/) | [Config](https://prometheus.io/docs/alerting/latest/configuration/) | Správa alertů — v compose zatím vypnutý, připraven k použití |
+| [Prometheus](https://prometheus.io/docs/introduction/overview/) | [Remote Write](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_write) · [TLS](https://prometheus.io/docs/prometheus/latest/configuration/https/) | Prijima metriky z Check Point via Remote Write, uklada do TSDB |
+| [Grafana](https://grafana.com/docs/grafana/latest/) | [Provisioning](https://grafana.com/docs/grafana/latest/administration/provisioning/) | Vizualizace metrik, dashboardy nacitane automaticky ze slozky |
+| [Caddy](https://caddyserver.com/docs/) | [Reverse proxy](https://caddyserver.com/docs/quick-starts/reverse-proxy) | Reverse proxy s automatickym TLS (Let's Encrypt) pred Grafanou |
+| [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/) | [Config](https://prometheus.io/docs/alerting/latest/configuration/) | Sprava alertu — v compose zatim vypnuty, pripraven k pouziti |
 
 ## Architektura
 
 ```
-Check Point zařízení
+Check Point zarizeni
   └── OpenTelemetry Agent (CPView → metriky)
         └── OpenTelemetry Collector
               └── Prometheus Remote Write (HTTPS)
@@ -32,48 +32,48 @@ Check Point zařízení
 skyline/
 ├── docker-compose.yml
 ├── .env                          # konfigurace (porty, verze, hesla)
-├── certs/                        # TLS certifikáty (nejsou v gitu)
-│   ├── prometheus.crt            # certifikát serveru
-│   └── prometheus.key            # privátní klíč
+├── certs/                        # TLS certifikaty (nejsou v gitu)
+│   ├── prometheus.crt            # certifikat serveru
+│   └── prometheus.key            # privatni klic
 ├── prometheus/
 │   ├── prometheus.yml            # Prometheus config
 │   └── web.yml                   # TLS / mTLS konfigurace
 ├── grafana/provisioning/
 │   ├── datasources/prometheus.yml
-│   └── dashboards/provider.yml   # sleduje ./dashboards/ každých 30 s
-├── dashboards/                   # JSON soubory dashboardů
+│   └── dashboards/provider.yml   # sleduje ./dashboards/ kazdych 30 s
+├── dashboards/                   # JSON soubory dashboardu
 └── alertmanager/
-    └── alertmanager.yml          # šablona (v compose zatím vypnutý)
+    └── alertmanager.yml          # sablona (v compose zatim vypnuty)
 ```
 
-## Požadavky
+## Pozadavky
 
-**Hardware** (doporučené minimum):
+**Hardware** (doporucene minimum):
 - 2 vCPU, 2 GB RAM
-- Disk: závisí na počtu metrik a délce retence — Prometheus uvádí postup výpočtu
+- Disk: zavisi na poctu metrik a delce retence — Prometheus uvadi postup vypoctu
   v [dokumentaci ke storage](https://prometheus.io/docs/prometheus/latest/storage/#operational-aspects).
-  Jako orientační hodnota: Check Point gateway exportuje cca **1 400 metrik**, počet se liší
-  podle typu zařízení, počtu běžících blade a konfiguraci. Výsledná velikost dat na disku
-  závisí také na počtu monitorovaných GW a zvolené retenci.
+  Jako orientacni hodnota: Check Point gateway exportuje cca **1 400 metrik**, pocet se lisi
+  podle typu zarizeni, poctu bezicich blade a konfiguraci. Vysledna velikost dat na disku
+  zavisi take na poctu monitorovanych GW a zvolene retenci.
 
-**Síť:**
-- Port `9090` přístupný z Check Point sítě (Prometheus remote write), ideálně omezit firewallem jen na IP kolektoru
-- Port `80` a `443` pro Caddy — viz níže
+**Sit:**
+- Port `9090` pristupny z Check Point site (Prometheus remote write), idealne omezit firewallem jen na IP kolektoru
+- Port `80` a `443` pro Caddy — viz nize
 
 **Software:**
 - Docker + Docker Compose plugin
 
-**Poznámka k síťovému umístění a TLS:**
-Stack nevyžaduje veřejnou IP. Caddy podporuje tři režimy TLS:
-- **Let's Encrypt** — automatický certifikát, vyžaduje veřejnou IP a DNS záznam (porty 80+443 z internetu)
-- **`tls internal`** — Caddy si vytvoří vlastní lokální CA a podepíše certifikát sám; vhodné pro interní nasazení bez veřejné IP (prohlížeč bude certifikát považovat za nedůvěryhodný, dokud nepřidáš CA do trust store)
-- **Vlastní certifikát** — předáš cert a klíč, např. vydaný interní PKI
+**Poznamka k sitovemu umisteni a TLS:**
+Stack nevyzaduje verejnou IP. Caddy podporuje tri rezimy TLS:
+- **Let's Encrypt** — automaticky certifikat, vyzaduje verejnou IP a DNS zaznam (porty 80+443 z internetu)
+- **`tls internal`** — Caddy si vytvori vlastni lokalni CA a podepise certifikat sam; vhodne pro interni nasazeni bez verejne IP (prohlizec bude certifikat povazovat za neduveryhodny, dokud nepridas CA do trust store)
+- **Vlastni certifikat** — predas cert a klic, napr. vydany interni PKI
 
-## 1. Certifikát
+## 1. Certifikat
 
-Prometheus musí běžet přes HTTPS — Check Point kolektor odmítá plain HTTP.
+Prometheus musi bezet pres HTTPS — Check Point kolektor odmita plain HTTP.
 
-### Self-signed (pro testování nebo interní použití)
+### Self-signed (pro testovani nebo interni pouziti)
 
 ```bash
 openssl req -x509 -newkey rsa:4096 \
@@ -84,34 +84,34 @@ openssl req -x509 -newkey rsa:4096 \
   -addext "subjectAltName=IP:<IP tohoto serveru>,DNS:<hostname>"
 ```
 
-Soubor `certs/prometheus.crt` pak předáš Check Point kolektoru jako **CA certifikát**
+Soubor `certs/prometheus.crt` pak predas Check Point kolektoru jako **CA certifikat**
 (pole `tls_ca_cert` v konfiguraci kolektoru).
 
-### Vydaný certifikát (Let's Encrypt, interní CA)
+### Vydany certifikat (Let's Encrypt, interni CA)
 
-Stačí zkopírovat:
+Staci zkopirovat:
 ```bash
 cp /cesta/k/fullchain.pem certs/prometheus.crt
 cp /cesta/k/privkey.pem   certs/prometheus.key
 ```
 
-### mTLS (ověření Check Point kolektoru)
+### mTLS (overeni Check Point kolektoru)
 
-Pokud Check Point kolektor posílá klientský certifikát, odkomentuj v `prometheus/web.yml`:
+Pokud Check Point kolektor posila klientsky certifikat, odkomentuj v `prometheus/web.yml`:
 ```yaml
 client_ca_file:   /etc/prometheus/certs/ca.crt
 client_auth_type: RequireAndVerifyClientCert
 ```
-a vlož CA certifikát do `certs/ca.crt`.
+a vloz CA certifikat do `certs/ca.crt`.
 
 ## 2. Konfigurace (.env)
 
-Zkopíruj a uprav `.env`:
+Zkopiruj a uprav `.env`:
 ```bash
 # Grafana heslo
 GRAFANA_ADMIN_PASSWORD=silne-heslo
 
-# Veřejná URL Grafany (pro správné odkazy)
+# Verejna URL Grafany (pro spravne odkazy)
 GRAFANA_ROOT_URL=https://monitoring.example.com:3000
 
 # Retention Promethea
@@ -119,7 +119,7 @@ PROMETHEUS_RETENTION=90d
 PROMETHEUS_RETENTION_SIZE=10GB
 ```
 
-## 3. Spuštění
+## 3. Spusteni
 
 ```bash
 docker compose up -d
@@ -128,24 +128,24 @@ docker compose logs -f   # sledovat logy
 
 ## 4. Check Point kolektor — remote write endpoint
 
-Na straně Check Point OpenTelemetry Collectoru nastavíš:
+Na strane Check Point OpenTelemetry Collectoru nastavis:
 
 | Parametr | Hodnota |
 |---|---|
 | Endpoint | `https://<IP/hostname tohoto serveru>:9090/api/v1/write` |
 | TLS CA cert | obsah `certs/prometheus.crt` |
-| Autentizace | žádná (nebo mTLS dle konfigurace výše) |
+| Autentizace | zadna (nebo mTLS dle konfigurace vyse) |
 
 ## 5. Grafana dashboardy
 
-Oficiální Check Point dashboardy ke stažení v sekci **Downloads**:
+Oficialni Check Point dashboardy ke stazeni v sekci **Downloads**:
 **https://support.checkpoint.com/results/sk/sk178566**
 
-JSON soubory dashboardů vlož do složky `dashboards/`. Grafana je automaticky
-importuje a každých 30 sekund kontroluje změny — při aktualizaci souboru se
+JSON soubory dashboardu vloz do slozky `dashboards/`. Grafana je automaticky
+importuje a kazdych 30 sekund kontroluje zmeny — pri aktualizaci souboru se
 dashboard reimportuje bez restartu.
 
-Podadresy v `dashboards/` se zobrazí jako složky v Grafaně
+Podadresy v `dashboards/` se zobrazi jako slozky v Grafane
 (`foldersFromFilesStructure: true`).
 
 ```
@@ -157,11 +157,11 @@ dashboards/
     └── hardware.json
 ```
 
-## 6. Alertmanager (pro budoucí použití)
+## 6. Alertmanager (pro budouci pouziti)
 
-Alertmanager je v `docker-compose.yml` zakomentovaný. Až bude potřeba:
+Alertmanager je v `docker-compose.yml` zakomentovany. Az bude potreba:
 
-1. Uprav `alertmanager/alertmanager.yml` (SMTP, příjemci atd.)
+1. Uprav `alertmanager/alertmanager.yml` (SMTP, prijemci atd.)
 2. Odkomentuj sekci `alertmanager` v `docker-compose.yml` (i volume `alertmanager_data`)
 3. Odkomentuj sekci `alerting` v `prometheus/prometheus.yml`
 4. `docker compose up -d`
@@ -180,9 +180,9 @@ curl -X POST http://localhost:9090/-/reload
 ## Firewall
 
 ```bash
-# Příklad pro nftables / iptables — upravit dle prostředí
-# Port 9090 jen z Check Point sítě
+# Priklad pro nftables / iptables — upravit dle prostredi
+# Port 9090 jen z Check Point site
 ufw allow from <CP_subnet> to any port 9090
-# Port 3000 jen pro administrátory
+# Port 3000 jen pro administratory
 ufw allow from <admin_subnet> to any port 3000
 ```
