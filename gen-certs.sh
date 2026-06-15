@@ -30,7 +30,7 @@ openssl req -x509 -newkey rsa:4096 \
     -subj "/CN=${HOSTNAME}" \
     -addext "subjectAltName=${SAN}"
 
-chmod 600 certs/prometheus.key
+chmod 644 certs/prometheus.key
 
 echo ""
 echo "Certifikat vygenerovan:"
