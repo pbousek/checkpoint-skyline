@@ -92,6 +92,48 @@ sklnctl export --set "$(cat payload.json)"
 
 ---
 
+## Skripty
+
+### gen-certs.sh
+
+Vygeneruje self-signed TLS certifikat pro Prometheus Remote Write endpoint.
+
+```
+Pouziti:  ./gen-certs.sh <hostname> [<ip>]
+Priklady: ./gen-certs.sh promtest.example.com
+          ./gen-certs.sh promtest.example.com 10.0.0.42
+```
+
+Vystup:
+- `certs/prometheus.crt` -- nahrajes na Check Point kolektor jako CA cert
+- `certs/prometheus.key` -- zustava na serveru, nikam neodesylat
+
+Hostname a IP se zapisi do SAN (Subject Alternative Name) certifikatu --
+Check Point kolektor overuje, ze se certifikat shoduji s adresou endpointu.
+
+### setup.sh
+
+Precte `.env` a vygeneruje vsechny konfiguracni soubory. Spustit po kazdem
+`git pull` nebo zmene `.env`.
+
+Pozadavky pred spustenim:
+- existuje `.env` (zkopirovat z `.env.example`)
+- existuje `certs/prometheus.crt` (spustit `gen-certs.sh`)
+
+Co generuje:
+
+| Soubor | Popis |
+|---|---|
+| `prometheus/web.yml` | TLS + basic auth s bcrypt hashem hesla |
+| `caddy/Caddyfile` | TLS mod dle `CADDY_TLS_MODE` |
+| `certs/grafana.crt/key` | Self-signed cert pro Grafanu (jen `CADDY_TLS_MODE=custom`) |
+| `payload.json` | Konfigurace pro Check Point kolektor (endpoint + cert + credentials) |
+
+Pro generovani bcrypt hashe pouziva `python3-bcrypt`, pokud neni nainstalovan,
+pouzije Docker image `httpd:2` jako fallback.
+
+---
+
 ## TLS pro Grafanu (Caddy)
 
 Nastavuje se pres `CADDY_TLS_MODE` v `.env`, `setup.sh` vygeneruje Caddyfile.
