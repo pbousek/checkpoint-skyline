@@ -10,8 +10,8 @@
 #   ./gen-certs.sh skyline.example.com 10.0.0.42
 #
 # Vystup:
-#   certs/prometheus.crt  — nahrat na Check Point kolektoru jako CA cert
-#   certs/prometheus.key  — zustava na serveru (nesdilet)
+#   certs/prometheus.crt  -- nahrat na Check Point kolektoru jako CA cert
+#   certs/prometheus.key  -- zustava na serveru (nesdilet)
 
 set -euo pipefail
 

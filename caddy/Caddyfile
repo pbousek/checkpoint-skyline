@@ -1,4 +1,4 @@
-# Caddy TLS — tri mozne rezimy, odkomentuj ten ktery odpovida tvemu prostredi:
+# Caddy TLS -- tri mozne rezimy, odkomentuj ten ktery odpovida tvemu prostredi:
 
 # 1) Let's Encrypt (vychozi)
 #    Vyzaduje verejnou IP, DNS zaznam pro domenu a otevrene porty 80+443 z internetu.
@@ -9,7 +9,7 @@
 
 # 2) Interni CA (bez verejne IP)
 #    Caddy si vytvori vlastni lokalni CA a certifikat podepise sam.
-#    Certifikat bude v prohlizeci neduveryhodny — je potreba pridat Caddy root CA
+#    Certifikat bude v prohlizeci neduveryhodny -- je potreba pridat Caddy root CA
 #    do trust store systemu/prohlizece (najdes ji v Docker volume caddy_data).
 #
 # {$GRAFANA_DOMAIN} {
