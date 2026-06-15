@@ -3,3 +3,4 @@ certs/*.key
 certs/*.pem
 .env
 !.env.example
+payload.json
