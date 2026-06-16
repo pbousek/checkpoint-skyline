@@ -53,13 +53,18 @@ PROMETHEUS_AUTH_PASSWORD=silne-heslo
 
 ### 2. Certifikat pro Prometheus
 
+Skript vygeneruje self-signed TLS certifikat pro Prometheus. Jako parametr
+predas hostname nebo IP serveru -- zapisou se do SAN certifikatu, Check Point
+kolektor je pri pripojeni overuje.
+
 ```bash
-./gen-certs.sh <hostname-nebo-IP>
+./gen-certs.sh <hostname> [<ip>]
 # priklad:
 ./gen-certs.sh promtest.example.com 10.0.0.42
 ```
 
-Vygeneruje `certs/prometheus.crt` a `certs/prometheus.key`.
+Vygeneruje `certs/prometheus.crt` (certifikat) a `certs/prometheus.key` (privatni klic).
+Certifikat `prometheus.crt` pak nahrajs na Check Point kolektor jako CA cert.
 
 ### 3. Generovani konfigurace
 
