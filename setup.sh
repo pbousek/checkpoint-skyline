@@ -50,7 +50,8 @@ tls_server_config:
   cert_file: /etc/prometheus/certs/prometheus.crt
   key_file:  /etc/prometheus/certs/prometheus.key
 
-  # mTLS -- overeni klienta (Check Point kolektoru). Odkomentovat pokud CP vyzaduje mTLS:
+  # mTLS -- client certificate verification (Check Point collector).
+  # Uncomment if the CP collector sends a client certificate:
   # client_ca_file:    /etc/prometheus/certs/ca.crt
   # client_auth_type:  RequireAndVerifyClientCert
 
@@ -72,7 +73,7 @@ if [[ "$CADDY_TLS_MODE" == "custom" && ! -f "certs/grafana.crt" ]]; then
         -subj "/CN=${GRAFANA_DOMAIN}" \
         -addext "subjectAltName=DNS:${GRAFANA_DOMAIN}"
     chmod 644 certs/grafana.crt certs/grafana.key
-    echo "Generated certs/grafana.crt -- add to browser/OS trust store to avoid warnings"
+    echo "Generated certs/grafana.crt -- import into browser/OS trust store to avoid warnings"
 fi
 
 case "$CADDY_TLS_MODE" in

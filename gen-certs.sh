@@ -1,21 +1,21 @@
 #!/bin/bash
-# Vygeneruje self-signed TLS certifikat pro Prometheus Remote Write endpoint.
-# Spust na serveru po naklonovani repozitare.
+# Generates a self-signed TLS certificate for the Prometheus Remote Write endpoint.
+# Run on the server after cloning the repository.
 #
-# Pouziti:
+# Usage:
 #   ./gen-certs.sh <hostname> [<ip>]
 #
-# Priklady:
+# Examples:
 #   ./gen-certs.sh skyline.example.com
 #   ./gen-certs.sh skyline.example.com 10.0.0.42
 #
-# Vystup:
-#   certs/prometheus.crt  -- nahrat na Check Point kolektoru jako CA cert
-#   certs/prometheus.key  -- zustava na serveru (nesdilet)
+# Output:
+#   certs/prometheus.crt  -- upload to Check Point collector as CA cert
+#   certs/prometheus.key  -- stays on the server, do not share
 
 set -euo pipefail
 
-HOSTNAME="${1:?Chybi hostname. Pouziti: $0 <hostname> [<ip>]}"
+HOSTNAME="${1:?Missing hostname. Usage: $0 <hostname> [<ip>]}"
 IP="${2:-}"
 
 SAN="DNS:${HOSTNAME}"
@@ -33,8 +33,8 @@ openssl req -x509 -newkey rsa:4096 \
 chmod 644 certs/prometheus.key
 
 echo ""
-echo "Certifikat vygenerovan:"
+echo "Certificate generated:"
 echo "  certs/prometheus.crt  (SAN: ${SAN})"
 echo "  certs/prometheus.key"
 echo ""
-echo "Na Check Point kolektoru nastav jako CA cert: certs/prometheus.crt"
+echo "Upload certs/prometheus.crt to the Check Point collector as CA cert."
