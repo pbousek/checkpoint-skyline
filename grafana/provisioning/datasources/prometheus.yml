@@ -4,10 +4,15 @@ datasources:
   - name: Prometheus
     type: prometheus
     uid: prometheus
-    url: http://prometheus:9090
+    url: https://prometheus:9090
     access: proxy
     isDefault: true
     editable: false
+    basicAuth: true
+    basicAuthUser: ${PROMETHEUS_AUTH_USER}
     jsonData:
       httpMethod: POST
       timeInterval: 15s
+      tlsSkipVerify: true
+    secureJsonData:
+      basicAuthPassword: ${PROMETHEUS_AUTH_PASSWORD}

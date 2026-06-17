@@ -32,6 +32,8 @@ services:
       - GF_SECURITY_ADMIN_USER=${GRAFANA_ADMIN_USER:-admin}
       - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD:-changeme}
       - GF_SERVER_ROOT_URL=https://${GRAFANA_DOMAIN:-localhost}
+      - PROMETHEUS_AUTH_USER=${PROMETHEUS_AUTH_USER:-skyline}
+      - PROMETHEUS_AUTH_PASSWORD=${PROMETHEUS_AUTH_PASSWORD:-changeme}
     volumes:
       - grafana_data:/var/lib/grafana
       - ./grafana/provisioning:/etc/grafana/provisioning:ro
