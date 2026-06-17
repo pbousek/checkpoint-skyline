@@ -116,7 +116,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-1}"
+        "uid": "prometheus"
       },
       "description": "Machine Role",
       "fieldConfig": {
@@ -169,7 +169,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -187,7 +187,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-1}"
+        "uid": "prometheus"
       },
       "description": "Version of the OS",
       "fieldConfig": {
@@ -235,7 +235,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -254,7 +254,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-1}"
+        "uid": "prometheus"
       },
       "description": "Total number of CPU cores",
       "fieldConfig": {
@@ -307,7 +307,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -325,7 +325,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-1}"
+        "uid": "prometheus"
       },
       "description": "Installed policy name",
       "fieldConfig": {
@@ -373,7 +373,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -392,7 +392,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-1}"
+        "uid": "prometheus"
       },
       "description": "Busy state of all CPU cores together",
       "fieldConfig": {
@@ -449,7 +449,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -468,7 +468,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-1}"
+        "uid": "prometheus"
       },
       "description": "Non available RAM memory",
       "fieldConfig": {
@@ -525,7 +525,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "expr": "system_memory_usage{host_name=\"$d_hostname\", environment=~\"$d_environment\", service_namespace=~\"$d_namespace\", state=\"used\"} / ignoring (state) system_memory_limit{host_name=\"$d_hostname\", environment=~\"$d_environment\", service_namespace=~\"$d_namespace\"} * 100",
           "hide": false,
@@ -539,7 +539,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-1}"
+        "uid": "prometheus"
       },
       "description": "Used Swap",
       "fieldConfig": {
@@ -596,7 +596,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "expr": "system_paging_usage{host_name=\"$d_hostname\", environment=~\"$d_environment\", service_namespace=~\"$d_namespace\", state=\"used\"} / ignoring (state) system_paging_limit{host_name=\"$d_hostname\", environment=~\"$d_environment\", service_namespace=~\"$d_namespace\"} * 100",
           "hide": false,
@@ -610,7 +610,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-1}"
+        "uid": "prometheus"
       },
       "description": "\"/\" partition usage",
       "fieldConfig": {
@@ -667,7 +667,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -686,7 +686,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-1}"
+        "uid": "prometheus"
       },
       "description": "\"/var/log\" partition usage",
       "fieldConfig": {
@@ -743,7 +743,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -762,7 +762,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-1}"
+        "uid": "prometheus"
       },
       "description": "TCP Out Of State Drops Status",
       "fieldConfig": {
@@ -829,7 +829,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -847,7 +847,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-1}"
+        "uid": "prometheus"
       },
       "description": "OS Edition",
       "fieldConfig": {
@@ -900,7 +900,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -918,7 +918,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-1}"
+        "uid": "prometheus"
       },
       "description": "Total RAM",
       "fieldConfig": {
@@ -971,7 +971,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -989,7 +989,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-1}"
+        "uid": "prometheus"
       },
       "description": "Time of last policy installation",
       "fieldConfig": {
@@ -1038,7 +1038,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "exemplar": false,
           "expr": "(firewall_policy_time{host_name=\"$d_hostname\", environment=~\"$d_environment\", service_namespace=\"$d_namespace\"}>100000)*1000",
@@ -1056,7 +1056,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-1}"
+        "uid": "prometheus"
       },
       "description": "Uptime since last reboot",
       "fieldConfig": {
@@ -1109,7 +1109,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -1127,7 +1127,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-1}"
+        "uid": "prometheus"
       },
       "description": "FW build version",
       "fieldConfig": {
@@ -1175,7 +1175,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -1194,7 +1194,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-1}"
+        "uid": "prometheus"
       },
       "description": "Total SWAP ",
       "fieldConfig": {
@@ -1247,7 +1247,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -1265,7 +1265,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-1}"
+        "uid": "prometheus"
       },
       "description": "CPU load  comparison by types",
       "fieldConfig": {
@@ -1321,7 +1321,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -1340,7 +1340,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-1}"
+        "uid": "prometheus"
       },
       "description": "Top interfaces with the highest RX traffic since last boot",
       "fieldConfig": {
@@ -1395,7 +1395,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -1413,7 +1413,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-1}"
+        "uid": "prometheus"
       },
       "description": "Top interfaces with the highest TX traffic since last boot",
       "fieldConfig": {
@@ -1468,7 +1468,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -1486,7 +1486,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-1}"
+        "uid": "prometheus"
       },
       "description": "Hardware Model",
       "fieldConfig": {
@@ -1539,7 +1539,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -1557,7 +1557,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-1}"
+        "uid": "prometheus"
       },
       "description": "Total RootFS",
       "fieldConfig": {
@@ -1610,7 +1610,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -1642,7 +1642,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-1}"
+        "uid": "prometheus"
       },
       "description": "Basic CPU info",
       "fieldConfig": {
@@ -1780,7 +1780,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "exemplar": true,
           "expr": "sum(system_cpu_utilization{host_name=\"$d_hostname\", environment=~\"$d_environment\", service_namespace=~\"$d_namespace\", state=\"system\"})",
@@ -1791,7 +1791,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "exemplar": true,
           "expr": "sum(system_cpu_utilization{host_name=\"$d_hostname\", environment=~\"$d_environment\", service_namespace=~\"$d_namespace\", state=\"user\"})",
@@ -1803,7 +1803,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "exemplar": true,
           "expr": "sum(system_cpu_utilization{host_name=\"$d_hostname\", environment=~\"$d_environment\", service_namespace=~\"$d_namespace\", state=\"io wait\"})",
@@ -1815,7 +1815,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "exemplar": true,
           "expr": "sum(system_cpu_utilization{host_name=\"$d_hostname\", environment=~\"$d_environment\", service_namespace=~\"$d_namespace\", state=\"idle\"})",
@@ -1831,7 +1831,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-1}"
+        "uid": "prometheus"
       },
       "description": "Basic memory usage",
       "fieldConfig": {
@@ -1974,7 +1974,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "exemplar": true,
           "expr": "system_memory_usage_real_total{host_name=\"$d_hostname\", environment=~\"$d_environment\", service_namespace=~\"$d_namespace\"}",
@@ -1987,7 +1987,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "exemplar": true,
           "expr": "system_memory_usage{host_name=\"$d_hostname\", environment=~\"$d_environment\", service_namespace=~\"$d_namespace\", state=\"used\"}",
@@ -2001,7 +2001,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "exemplar": true,
           "expr": "system_memory_usage{host_name=\"$d_hostname\", environment=~\"$d_environment\", service_namespace=~\"$d_namespace\", state=\"free\"}",
@@ -2015,7 +2015,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "exemplar": true,
           "expr": "system_paging_usage{host_name=\"$d_hostname\", environment=~\"$d_environment\", service_namespace=~\"$d_namespace\", state=\"used\"}",
@@ -2034,7 +2034,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-1}"
+        "uid": "prometheus"
       },
       "description": "Disk space used of all filesystems mounted",
       "fieldConfig": {
@@ -2157,7 +2157,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -2176,7 +2176,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-1}"
+        "uid": "prometheus"
       },
       "description": "Network traffic in bits/sec",
       "fieldConfig": {
@@ -2281,7 +2281,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -2294,7 +2294,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -2323,7 +2323,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "description": "CPU usage by cores",
           "fieldConfig": {
@@ -2406,7 +2406,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS-1}"
+                "uid": "prometheus"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -2424,7 +2424,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "description": "CPU Interrupts info",
           "fieldConfig": {
@@ -2506,7 +2506,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS-1}"
+                "uid": "prometheus"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -2524,7 +2524,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "description": "Disk space used of all filesystems mounted",
           "fieldConfig": {
@@ -2649,7 +2649,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS-1}"
+                "uid": "prometheus"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -2668,7 +2668,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "description": "Network traffic per interface in bits/sec",
           "fieldConfig": {
@@ -2777,7 +2777,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS-1}"
+                "uid": "prometheus"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -2790,7 +2790,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS-1}"
+                "uid": "prometheus"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -2808,7 +2808,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "description": "Network traffic per interface by packets/sec ",
           "fieldConfig": {
@@ -2917,7 +2917,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS-1}"
+                "uid": "prometheus"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -2930,7 +2930,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS-1}"
+                "uid": "prometheus"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -2948,7 +2948,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "description": "Network drops per interface",
           "fieldConfig": {
@@ -3057,7 +3057,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS-1}"
+                "uid": "prometheus"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -3070,7 +3070,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS-1}"
+                "uid": "prometheus"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -3088,7 +3088,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "description": "Concurrent connections by type",
           "fieldConfig": {
@@ -3170,7 +3170,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS-1}"
+                "uid": "prometheus"
               },
               "exemplar": true,
               "expr": "SUM(system_traffic_connections{host_name=\"$d_hostname\", environment=~\"$d_environment\", service_namespace=~\"$d_namespace\", protocol=\"other\"})",
@@ -3183,7 +3183,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS-1}"
+                "uid": "prometheus"
               },
               "exemplar": true,
               "expr": "SUM(system_traffic_connections{host_name=\"$d_hostname\", environment=~\"$d_environment\", service_namespace=~\"$d_namespace\", protocol=\"tcp\", state=\"handshake\"})",
@@ -3196,7 +3196,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS-1}"
+                "uid": "prometheus"
               },
               "exemplar": true,
               "expr": "SUM(system_traffic_connections{host_name=\"$d_hostname\", environment=~\"$d_environment\", service_namespace=~\"$d_namespace\", protocol=\"tcp\", state=\"established\"})",
@@ -3209,7 +3209,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS-1}"
+                "uid": "prometheus"
               },
               "exemplar": true,
               "expr": "SUM(system_traffic_connections{host_name=\"$d_hostname\", environment=~\"$d_environment\", service_namespace=~\"$d_namespace\", protocol=\"tcp\", state=\"closed\"})",
@@ -3226,7 +3226,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "description": "Connection drops by type",
           "fieldConfig": {
@@ -3308,7 +3308,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS-1}"
+                "uid": "prometheus"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -3327,7 +3327,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "description": "Connection rate per second",
           "fieldConfig": {
@@ -3412,7 +3412,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS-1}"
+                "uid": "prometheus"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -3445,7 +3445,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "fieldConfig": {
             "defaults": {
@@ -3519,7 +3519,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS-1}"
+                "uid": "prometheus"
               },
               "exemplar": true,
               "expr": "system_network_interface_state{host_name=\"$d_hostname\", environment=~\"$d_environment\", service_namespace=~\"$d_namespace\", name=~\".+\"}",
@@ -3533,7 +3533,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS-1}"
+                "uid": "prometheus"
               },
               "editorMode": "code",
               "expr": "system_network_interface_address{host_name=\"$d_hostname\", environment=~\"$d_environment\", service_namespace=~\"$d_namespace\", name=~\".+\", address=~\".+\"}",
@@ -3586,7 +3586,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "description": "",
           "fieldConfig": {
@@ -3665,7 +3665,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS-1}"
+                "uid": "prometheus"
               },
               "exemplar": false,
               "expr": "system_network_packets_receive{host_name=\"$d_hostname\", environment=~\"$d_environment\", service_namespace=~\"$d_namespace\", interface=~\".+\"}",
@@ -3679,7 +3679,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS-1}"
+                "uid": "prometheus"
               },
               "exemplar": false,
               "expr": "system_network_interface_packets_receive_rate{host_name=\"$d_hostname\", environment=~\"$d_environment\", service_namespace=~\"$d_namespace\", interface=~\".+\"}",
@@ -3693,7 +3693,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS-1}"
+                "uid": "prometheus"
               },
               "exemplar": false,
               "expr": "system_network_interface_packets_receive_rate_peak{host_name=\"$d_hostname\", environment=~\"$d_environment\", service_namespace=~\"$d_namespace\", interface=~\".+\"}",
@@ -3707,7 +3707,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS-1}"
+                "uid": "prometheus"
               },
               "exemplar": false,
               "expr": "system_network_dropped_receive{host_name=\"$d_hostname\", environment=~\"$d_environment\", service_namespace=~\"$d_namespace\", interface=~\".+\"}",
@@ -3721,7 +3721,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS-1}"
+                "uid": "prometheus"
               },
               "exemplar": false,
               "expr": "system_network_errors_receive{host_name=\"$d_hostname\", environment=~\"$d_environment\", service_namespace=~\"$d_namespace\", interface=~\".+\"}",
@@ -3807,7 +3807,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-1}"
+            "uid": "prometheus"
           },
           "description": "",
           "fieldConfig": {
@@ -3886,7 +3886,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS-1}"
+                "uid": "prometheus"
               },
               "exemplar": false,
               "expr": "system_network_packets_transmit{host_name=\"$d_hostname\", environment=~\"$d_environment\", service_namespace=~\"$d_namespace\", interface=~\".+\"}",
@@ -3900,7 +3900,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS-1}"
+                "uid": "prometheus"
               },
               "exemplar": false,
               "expr": "system_network_interface_packets_transmit_rate{host_name=\"$d_hostname\", environment=~\"$d_environment\", service_namespace=~\"$d_namespace\", interface=~\".+\"}",
@@ -3914,7 +3914,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS-1}"
+                "uid": "prometheus"
               },
               "exemplar": false,
               "expr": "system_network_interface_packets_transmit_rate_peak{host_name=\"$d_hostname\", environment=~\"$d_environment\", service_namespace=~\"$d_namespace\", interface=~\".+\"}",
@@ -3928,7 +3928,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS-1}"
+                "uid": "prometheus"
               },
               "exemplar": false,
               "expr": "system_network_dropped_transmit{host_name=\"$d_hostname\", environment=~\"$d_environment\", service_namespace=~\"$d_namespace\", interface=~\".+\"}",
@@ -3942,7 +3942,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS-1}"
+                "uid": "prometheus"
               },
               "exemplar": false,
               "expr": "system_network_errors_transmit{host_name=\"$d_hostname\", environment=~\"$d_environment\", service_namespace=~\"$d_namespace\", interface=~\".+\"}",
@@ -4042,7 +4042,7 @@
         "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS-1}"
+          "uid": "prometheus"
         },
         "definition": "label_values(system_uptime,environment)",
         "hide": 0,
@@ -4065,7 +4065,7 @@
         "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS-1}"
+          "uid": "prometheus"
         },
         "definition": "label_values(system_uptime{environment=~\"$d_environment\"},host_name)",
         "hide": 0,
@@ -4088,7 +4088,7 @@
         "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS-1}"
+          "uid": "prometheus"
         },
         "definition": "label_values(system_uptime{host_name=\"$d_hostname\", environment=~\"$d_environment\"}, service_namespace)",
         "hide": 0,
