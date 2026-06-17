@@ -110,7 +110,7 @@ echo "Generated caddy/Caddyfile (mode: ${CADDY_TLS_MODE})"
 
 # --- payload.json ---
 
-CERT=$(awk 'NF {sub(/\r/, ""); printf "%s\\n",$0;}' "$CERT_FILE")
+CERT=$(awk 'NF {sub(/\r/, ""); printf "%s",$0;}' "$CERT_FILE")
 
 cat > payload.json <<EOF
 {
